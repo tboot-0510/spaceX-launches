@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-express";
 
-export const launchType = gql`
+export const LaunchType = gql`
   type LaunchLinks {
     patch: LaunchPatch
     webcast: String
@@ -42,6 +42,28 @@ export const launchType = gql`
     role: String
   }
 
+  type Launchpad {
+    images: LaunchpadImagesType
+    name: String
+    full_name: String
+    locality: String
+    region: String
+    latitude: Float
+    longitude: Float
+    launch_attempts: Int
+    launch_successes: Int
+    rockets: [String]
+    timezone: String
+    launches: [String]
+    status: String
+    details: String
+    id: String
+  }
+
+  type LaunchpadImagesType {
+    large: [String]
+  }
+
   type Launch {
     name: String
     date_utc: String
@@ -54,9 +76,9 @@ export const launchType = gql`
     details: String
     payloads: [String]
     cores: [Cores]
-    launchpad: String
+    launchpad: Launchpad
     failures: [FailureReason]
-    rocket: String
+    rocket: Rocket
     crew: [CrewMember]
     ships: [String]
     capsules: [String]
@@ -65,6 +87,7 @@ export const launchType = gql`
   type LaunchResult {
     docs: [Launch]
     totalDocs: Int
+    offset: Int
     limit: Int
     totalPages: Int
     page: Int
@@ -77,6 +100,6 @@ export const launchType = gql`
 
   type Query {
     getLaunches(page: Int!): LaunchResult
-    getLaunch(id: String): Launch
+    getLaunch(id: String!): LaunchResult
   }
 `;

@@ -21,7 +21,7 @@ const LaunchDetailsPage = () => {
 
   if (!data || error) return <div>Error</div>;
 
-  const launch = formatLaunchData(data.getLaunch);
+  const launch = formatLaunchData(data.getLaunch.docs[0]);
 
   console.log("launch", launch);
 

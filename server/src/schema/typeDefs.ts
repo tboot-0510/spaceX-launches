@@ -1,5 +1,6 @@
-import { launchType } from "./schemaTypes/launchType";
+import { LaunchType } from "./schemaTypes/launchType";
+import { RocketType } from "./schemaTypes/rocketType";
 
-const typeDefs = [launchType];
+const typeDefs = [LaunchType, RocketType];
 
 export default typeDefs;

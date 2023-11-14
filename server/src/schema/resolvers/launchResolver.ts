@@ -1,7 +1,6 @@
 const launchResolver = {
   Query: {
     getLaunches: async (_: any, { page }: { page: number }) => {
-      console.log("page", page);
       const response = await fetch(
         "https://api.spacexdata.com/v5/launches/query",
         {
@@ -33,8 +32,34 @@ const launchResolver = {
     //   return launch;
     // },
     getLaunch: async (_: any, { id }: { id: string }) => {
+      console.log("id", id);
       const response = await fetch(
-        `https://api.spacexdata.com/v5/launches/${id}`
+        "https://api.spacexdata.com/v5/launches/query",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: { _id: id }, // MongoDB query
+            options: {
+              limit: 1,
+              populate: [
+                "rocket",
+                "launchpad",
+                // "payloads",
+                // "ships",
+                // {
+                //   "path":"cores",
+                //   "populate": [
+                //     {
+                //       "path":"core"
+                //     }
+                // }
+              ],
+            },
+          }),
+        }
       );
       const launch = await response.json();
       console.log("launch", launch);

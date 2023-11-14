@@ -19,6 +19,36 @@ const formatSuccess = (success: boolean) => {
   return "Failed";
 };
 
+const formatLaunchpad = (launchpad: any) => {
+  return {
+    name: launchpad.name,
+    fullName: launchpad.full_name,
+    region: launchpad.region,
+    locality: launchpad.locality,
+    details: launchpad.details,
+    image: launchpad.images.large?.[0],
+    latitude: launchpad.latitude,
+    longitude: launchpad.longitude,
+    launchAttempts: launchpad.launch_attempts,
+    launchSuccesses: launchpad.launch_successes,
+  };
+};
+
+const formatRocket = (rocket: any) => {
+  return {
+    name: rocket.name,
+    company: rocket.company,
+    country: rocket.country,
+    description: rocket.description,
+    additional_info: {
+      height: rocket.height.meters,
+      diameter: rocket.diameter.meters,
+      mass: rocket.mass.kg,
+      active: rocket.active,
+    },
+  };
+};
+
 const formatLaunchData = (launch: any) => {
   return {
     name: launch.name,
@@ -36,13 +66,13 @@ const formatLaunchData = (launch: any) => {
     },
     core_details: launch.cores,
     additional_details: {
-      launchpad: launch.launchpad,
+      launchpad: formatLaunchpad(launch.launchpad),
       ships: launch.ships,
       crew: launch.crew,
       capsules: launch.capsules,
       payloads: launch.payloads,
       fairings: launch.fairings,
-      rocket: launch.rocket,
+      rocket: formatRocket(launch.rocket),
     },
   };
 };
