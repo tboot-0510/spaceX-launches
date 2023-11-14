@@ -1,0 +1,137 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 1em;
+  margin: 0 0;
+  line-height: 1.1;
+}
+
+.container {
+  background-image: url('../public/nasa.jpg');
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.timeline {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-color: white;
+  z-index: 1;
+}
+
+.timelineContainer {
+  display: flex;
+  height: calc(100% - 100px);
+  overflow-x: auto;
+}
+
+.launchCard {
+  position: absolute;
+  height: 20px; /* Set the height of each launch card point */
+  width: 20px; /* Set the width of each launch card point */
+  background-color: #007bff; /* Set the color of each launch card point */
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.pagination {
+  display: flex;
+  padding: 0.5rem;
+  justify-content: space-between;
+}
+
+.paginationButton {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.f {
+  display: flex;
+}
+
+.fd-c {
+  flex-direction: column;
+}
+
+.fd-r {
+  flex-direction: row;
+}
+
+.jc-c {
+  justify-content: center;
+}
+
+.ai-c {
+  align-items: center;
+}
+
+.w-100-p {
+  width: 100%;
+}
+
+.h-100-p {
+  height: 100%;
+}
+
+.mt-12 {
+  margin-top: 12px;
+}
+
+.ml-12 {
+  margin-left: 12px;
+}
+
+.mt-24 {
+  margin-top: 24px;
+}
+
+.g-8 {
+  gap: 8px;
+}
+
+.f-1 {
+  flex-grow: 1;
+}
+
+.jc-fe {
+  justify-content: flex-end;
+}
+
+.fb-65 {
+  flex-basis: 65%;
+}

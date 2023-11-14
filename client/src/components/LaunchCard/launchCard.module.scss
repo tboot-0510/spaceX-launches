@@ -1,0 +1,58 @@
+.launchCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 25px;
+  min-width: 200px;
+  padding: 1rem;
+  margin: 1rem;
+  background-color: #fff;
+  color: #333;
+  height: 400px;
+  cursor: pointer;
+  flex-wrap: wrap;
+  width: 100%
+}
+
+.launchHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 32px;
+  justify-content: center;
+  max-height: 150px;
+  height:150px
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+}
+
+.detailsButton {
+  display: flex;
+  flex-direction: row;
+  max-width: 300px;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  border-radius: 25px;
+  border: 1px solid black;
+  color: black;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+.upcoming {
+  background-color: #808080;
+}

@@ -1,28 +1,44 @@
 const launchResolver = {
   Query: {
-    getLaunches: () => {
-      return [
+    getLaunches: async (_: any, { page }: { page: number }) => {
+      console.log("page", page);
+      const response = await fetch(
+        "https://api.spacexdata.com/v5/launches/query",
         {
-          id: "1",
-          name: "Falcon 9 Launch",
-          date: "2023-01-01",
-          status: "Success",
-        },
-        {
-          id: "2",
-          name: "Crew Dragon Launch",
-          date: "2023-02-01",
-          status: "Success",
-        },
-      ];
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            query: {},
+            options: {
+              sort: {
+                flight_number: "desc",
+              },
+              page: page,
+              limit: 6,
+            },
+          }),
+        }
+      );
+      const launches = await response.json();
+      return launches;
     },
-    getLaunch: (_: any, { id }: { id: string }) => {
-      return {
-        id,
-        name: "Falcon 9 Launch",
-        date: "2023-01-01",
-        status: "Success",
-      };
+    // getLaunch: async (_: any, { id }: { id: string }) => {
+    //   const response = await fetch(
+    //     `https://api.spacexdata.com/v5/launches/${id}`
+    //   );
+    //   const launch = await response.json();
+    //   console.log("launch", launch);
+    //   return launch;
+    // },
+    getLaunch: async (_: any, { id }: { id: string }) => {
+      const response = await fetch(
+        `https://api.spacexdata.com/v5/launches/${id}`
+      );
+      const launch = await response.json();
+      console.log("launch", launch);
+      return launch;
     },
   },
 };
