@@ -1,12 +1,14 @@
-FROM node:18.6.0
+FROM node:18.6.0-alpine
 
-WORKDIR /app
+WORKDIR /code/server
 
-COPY package*.json ./
+COPY package.json package.json
 
 RUN npm install
 
 COPY . .
+
+RUN npm run build
 
 EXPOSE 5000
 
