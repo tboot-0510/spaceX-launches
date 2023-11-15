@@ -16,7 +16,6 @@ const client = new ApolloClient({
           getLaunches: {
             keyArgs: [],
             merge(existing = [], incoming) {
-              console.log("incoming", existing, incoming.docs);
               return [...existing, ...incoming.docs];
             },
           },
@@ -24,6 +23,11 @@ const client = new ApolloClient({
       },
     },
   }),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "cache-and-network",
+    },
+  },
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

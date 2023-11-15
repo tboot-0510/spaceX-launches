@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_LAUNCHES } from "../graphql/queries/launchQueries";
 import Loading from "../components/Loading/Loading";
@@ -10,6 +10,8 @@ const LaunchesPage = () => {
   const timelineRef = useRef<HTMLDivElement | null>(null);
   const [page, setPage] = useState<number>(1);
 
+  // const apolloClient = useApolloClient();
+
   const { loading, error, data, fetchMore } = useQuery(GET_LAUNCHES, {
     variables: { page: page },
   });
@@ -20,36 +22,19 @@ const LaunchesPage = () => {
     }
   }, []);
 
-  if (loading) return <Loading />;
+  if (loading)
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
 
   if (!data || error) return <div>Error</div>;
-
-  console.log("page", page);
 
   const handleScrollLeft = () => {
     if (timelineRef.current) {
       fetchMore({
         variables: { page: page + 1 },
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prev;
-
-          console.log("prev", prev.getLaunches);
-          console.log("fetchMoreResult", fetchMoreResult.getLaunches.docs);
-
-          const newDocs = fetchMoreResult.getLaunches.docs.filter(
-            (newLaunch: any) =>
-              !prev.getLaunches.some(
-                (prevLaunch: any) => prevLaunch.id === newLaunch.id
-              )
-          );
-
-          return Object.assign({}, prev, {
-            getLaunches: {
-              ...fetchMoreResult.getLaunches,
-              docs: [...prev.getLaunches, ...newDocs],
-            },
-          });
-        },
       });
 
       setPage(page + 1);
@@ -58,12 +43,15 @@ const LaunchesPage = () => {
   };
 
   const handleScrollRight = () => {
+    if (page === 1) return;
+
     if (timelineRef.current) {
+      setPage(page - 1);
       timelineRef.current.scrollLeft += timelineRef.current.offsetWidth;
     }
   };
 
-  console.log("data", data?.getLaunches);
+  // console.log("cache", apolloClient.cache.extract());
 
   return (
     <main className="container">
@@ -80,7 +68,11 @@ const LaunchesPage = () => {
         <button className="paginationButton" onClick={handleScrollLeft}>
           <ArrowLeft size={32} />
         </button>
-        <button className="paginationButton" onClick={handleScrollRight}>
+        <button
+          disabled={page === 1}
+          className="paginationButton"
+          onClick={handleScrollRight}
+        >
           <ArrowRight size={32} />
         </button>
       </div>

@@ -15,7 +15,7 @@ const launchResolver = {
                 flight_number: "desc",
               },
               page: page,
-              limit: 6,
+              limit: 5,
             },
           }),
         }
@@ -23,14 +23,6 @@ const launchResolver = {
       const launches = await response.json();
       return launches;
     },
-    // getLaunch: async (_: any, { id }: { id: string }) => {
-    //   const response = await fetch(
-    //     `https://api.spacexdata.com/v5/launches/${id}`
-    //   );
-    //   const launch = await response.json();
-    //   console.log("launch", launch);
-    //   return launch;
-    // },
     getLaunch: async (_: any, { id }: { id: string }) => {
       console.log("id", id);
       const response = await fetch(
@@ -62,7 +54,6 @@ const launchResolver = {
         }
       );
       const launch = await response.json();
-      console.log("launch", launch);
       return launch;
     },
   },

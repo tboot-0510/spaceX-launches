@@ -1,3 +1,7 @@
+import { FormattedLaunch, Launch } from "../interfaces";
+import { FormattedLaunchPad, LaunchPad } from "../interfaces/launchpad";
+import { FormattedRocket, Rocket } from "../interfaces/rocket";
+
 const formatDate = (utcDateString: string): string => {
   const utcDate = new Date(utcDateString);
 
@@ -19,7 +23,7 @@ const formatSuccess = (success: boolean) => {
   return "Failed";
 };
 
-const formatLaunchpad = (launchpad: any) => {
+const formatLaunchpad = (launchpad: LaunchPad): FormattedLaunchPad => {
   return {
     name: launchpad.name,
     fullName: launchpad.full_name,
@@ -34,7 +38,7 @@ const formatLaunchpad = (launchpad: any) => {
   };
 };
 
-const formatRocket = (rocket: any) => {
+const formatRocket = (rocket: Rocket): FormattedRocket => {
   return {
     name: rocket.name,
     company: rocket.company,
@@ -49,7 +53,7 @@ const formatRocket = (rocket: any) => {
   };
 };
 
-const formatLaunchData = (launch: any) => {
+const formatLaunchData = (launch: Launch): FormattedLaunch => {
   return {
     name: launch.name,
     dateUTC: formatDate(launch.date_utc),
@@ -77,4 +81,20 @@ const formatLaunchData = (launch: any) => {
   };
 };
 
-export { formatDate, formatSuccess, formatLaunchData };
+const textWrapper = (title: string, msg: string | boolean | number) => {
+  if (typeof msg === "boolean") {
+    const msgToString = msg ? "True" : "False";
+    return (
+      <h2>
+        {title}: <p>{msgToString}</p>
+      </h2>
+    );
+  }
+  return (
+    <h2>
+      {title}: <p>{msg}</p>
+    </h2>
+  );
+};
+
+export { formatDate, formatSuccess, formatLaunchData, textWrapper };

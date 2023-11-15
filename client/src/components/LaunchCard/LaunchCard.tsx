@@ -1,5 +1,8 @@
-import React from "react";
-import { LaunchInterface } from "../../interfaces";
+import {
+  LaunchCardProps,
+  LaunchInterface,
+  LaunchMapProps,
+} from "../../interfaces";
 import { formatDate, formatSuccess } from "../../helpers/format";
 import styles from "./launchCard.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -8,18 +11,6 @@ import {
   RocketLaunch,
   Target,
 } from "@phosphor-icons/react";
-
-interface LaunchCardProps {
-  key: string;
-  launch: LaunchInterface;
-}
-
-interface LaunchMapProps {
-  key: string;
-  title: React.ReactNode;
-  additionalStyle: React.CSSProperties;
-  func: (value: string | boolean) => React.ReactNode;
-}
 
 const launchTitles: LaunchMapProps[] = [
   {
@@ -76,6 +67,7 @@ const LaunchCard = (props: LaunchCardProps) => {
           />
         )}
       </div>
+      {launch.upcoming && <div className={styles.error}>UPCOMING</div>}
       <div className="f fd-c w-100-p">
         {launchTitles.map((launchStruct: LaunchMapProps) => (
           <h2

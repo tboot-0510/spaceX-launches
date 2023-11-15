@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FormattedLaunchPad, LaunchPad } from "./launchpad";
+import { FormattedRocket, Rocket } from "./rocket";
+
 type LaunchLinks = {
   patch: {
     small: string;
@@ -20,27 +24,38 @@ type LaunchLinks = {
   wikipedia: string;
 };
 
-interface Launch {
+export type Failure = {
+  reason: string | null;
+  time: number | null;
+  altitude: number | null;
+};
+
+type Crew = {
+  crew: string;
+  role: string;
+};
+
+export interface Launch {
   fairings: {
     reused: boolean | null;
     recovery_attempt: boolean | null;
     recovered: boolean | null;
-    ships: any[];
+    ships: string[];
   };
   links: LaunchLinks;
   static_fire_date_utc: string | null;
   static_fire_date_unix: number | null;
   net: boolean;
   window: number | null;
-  rocket: string;
+  rocket: Rocket;
   success: boolean;
-  failures: any[];
+  failures: Failure[];
   details: string | null;
-  crew: any[];
-  ships: any[];
-  capsules: any[];
+  crew: Crew[];
+  ships: string[];
+  capsules: string[];
   payloads: string[];
-  launchpad: string;
+  launchpad: LaunchPad;
   flight_number: number;
   name: string;
   date_utc: string;
@@ -48,21 +63,54 @@ interface Launch {
   date_local: string;
   date_precision: string;
   upcoming: boolean;
-  cores: {
-    core: string;
-    flight: number;
-    gridfins: boolean;
-    legs: boolean;
-    reused: boolean;
-    landing_attempt: boolean;
-    landing_success: boolean | null;
-    landing_type: string | null;
-    landpad: string | null;
-  }[];
+  cores: Cores[];
   auto_update: boolean;
   tbd: boolean;
   launch_library_id: string | null;
   id: string;
+}
+
+type Cores = {
+  core: string;
+  flight: number;
+  gridfins: boolean;
+  legs: boolean;
+  reused: boolean;
+  landing_attempt: boolean;
+  landing_success: boolean;
+  landing_type: string;
+  landpad: string;
+};
+
+export interface FormattedLaunch {
+  name: string;
+  dateUTC: string;
+  status: {
+    success: boolean;
+    details: string | null;
+    failures: Failure[];
+  };
+  media: {
+    imageURL: string | null;
+    videoURL: string | null;
+    article: string | null;
+    wiki: string | null;
+  };
+  core_details: Cores[];
+  additional_details: {
+    launchpad: FormattedLaunchPad;
+    ships: any[];
+    crew: any[];
+    capsules: any[];
+    payloads: any[];
+    fairings: {
+      reused: boolean | null;
+      recovery_attempt: boolean | null;
+      recovered: boolean | null;
+      ships: string[];
+    };
+    rocket: FormattedRocket;
+  };
 }
 
 export type LaunchInterface = {
@@ -74,3 +122,15 @@ export type LaunchInterface = {
   links: LaunchLinks;
   upcoming: boolean;
 };
+
+export interface LaunchCardProps {
+  key: string;
+  launch: LaunchInterface;
+}
+
+export interface LaunchMapProps {
+  key: string;
+  title: React.ReactNode;
+  additionalStyle: React.CSSProperties;
+  func: (value: string | boolean) => React.ReactNode;
+}

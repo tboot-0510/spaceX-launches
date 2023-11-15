@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 import { formatLaunchData } from "../../helpers/format";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
@@ -9,6 +9,8 @@ import { ArrowLeft } from "@phosphor-icons/react";
 import styles from "./launchDetailsPage.module.scss";
 import ReactPlayer from "react-player";
 import LaunchDetails from "../../components/LaunchDetails/LaunchDetails";
+import RocketDetails from "../../components/RocketDetails/RocketDetails";
+import LaunchPadDetails from "../../components/LaunchPadDetails/LaunchPadDetails";
 
 const LaunchDetailsPage = () => {
   const { state } = useLocation();
@@ -23,8 +25,6 @@ const LaunchDetailsPage = () => {
 
   const launch = formatLaunchData(data.getLaunch.docs[0]);
 
-  console.log("launch", launch);
-
   return (
     <>
       <div className={styles.header}>
@@ -34,23 +34,30 @@ const LaunchDetailsPage = () => {
         </Link>
       </div>
 
-      <div className="f">
+      <div className="f fd-c" style={{ padding: "12px 24px" }}>
         <Suspense fallback={<div>Loading launch...</div>}>
           <div className="f fd-r w-100-p mt-12">
             <div className="f fd-c ai-c w-100-p">
-              <ReactPlayer
-                url={launch.media.videoURL}
-                height={400}
-                width={500}
-                playing={true}
-                config={{
-                  youtube: {
-                    playerVars: { showinfo: 1 },
-                  },
-                }}
-              />
+              {launch.media.videoURL && (
+                <ReactPlayer
+                  url={launch.media.videoURL}
+                  height={400}
+                  width={500}
+                  playing={true}
+                  config={{
+                    youtube: {
+                      playerVars: { showinfo: 1 },
+                    },
+                  }}
+                />
+              )}
+              {!launch.media.videoURL && <div>Video unavailable</div>}
             </div>
             <LaunchDetails launch={launch} />
+          </div>
+          <div className="f fd-r w-100-p mt-12">
+            <RocketDetails rocket={launch.additional_details.rocket} />
+            <LaunchPadDetails launchpad={launch.additional_details.launchpad} />
           </div>
         </Suspense>
       </div>

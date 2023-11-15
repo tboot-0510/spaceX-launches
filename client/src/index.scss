@@ -29,6 +29,19 @@ h2 {
   line-height: 1.1;
 }
 
+button:disabled {
+  cursor: not-allowed;
+  background-color: gray;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+  display: contents;
+  font-size: 14px;
+  font-weight: 200;
+}
+
 .container {
   background-image: url('../public/nasa.jpg');
   background-size: cover;
