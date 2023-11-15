@@ -17,7 +17,7 @@ React must be used for the UI, the framework/flavor is at your discretion.
 2. At the root of the repo project : run the command `docker compose up`.
 3. Open the react app on `http://localhost:8000/`
 
-## How to run the server side GraphQL API
+## How to run the server side GraphQL API tests
 
 0. `cd server`
 1. `npm run test`
